@@ -247,17 +247,17 @@ def rubber_parse(cmd):
   # SHIFT
   elif (l[0] == "SHIFT"):
     c, d = cmd.split(" ", 1)
-    rubber_send(["left-shift"] + list(d.rstrip())) 
+    rubber_send(["left-shift"] + [d.rstrip()]) 
 
   # ALT
   elif (l[0] == "ALT"):
     c, d = cmd.split(" ", 1)
-    rubber_send(["left-alt"] + list(d.rstrip())) 
+    rubber_send(["left-alt"] + [d.rstrip()]) 
 
   # CONTROL or CTRL
   elif (l[0] == "CONTROL" or l[0] == "CTRL"):
     c, d = cmd.split(" ", 1)
-    rubber_send(["left-ctrl"] + list(d.rstrip())) 
+    rubber_send(["left-ctrl"] + [d.rstrip()]) 
 
   # DOWNARROW or DOWN
   elif (l[0] == "DOWNARROW" or l[0] == "DOWN"):
