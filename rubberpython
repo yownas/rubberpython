@@ -12,9 +12,17 @@ hid_device = "/dev/hidg0"
 
 hid_translate= {
   "!":	["left-shift", "1"],
+  "@":	["left-shift", "2"],
   "#":	["left-shift", "3"],
+  "$":	["left-shift", "4"],
+  "%":	["left-shift", "5"],
+  "^":	["left-shift", "6"],
+  "&":	["left-shift", "7"],
+  "(":	["left-shift", "9"],
+  ")":	["left-shift", "0"],
   "<":	["left-shift", "comma"],
   ">":	["left-shift", "period"],
+  ":":	["left-shift", "semicolon"],
 }
 
 hid_mods = {
@@ -116,7 +124,7 @@ hid_table = {
   "up":		0x52,
   "num-lock":	0x53, "numlock":	0x53,
   "kp-divide":	0x54,
-  "kp-multiply":	0x55,
+  "kp-multiply":	0x55, "*":	0x55,
   "kp-minus":	0x56,
   "kp-plus":	0x57, "+":	0x57,
   "kp-enter":	0x58,
@@ -193,6 +201,10 @@ def rubber_parse(cmd):
   global default_delay
   global last_cmd
 
+  cmd=cmd.rstrip()
+  if len(cmd) <= 0:
+    return
+
   l = cmd.split()
 
   # QUIT
@@ -229,7 +241,8 @@ def rubber_parse(cmd):
     rubber_send(["left-meta"] + list(d.rstrip())) 
 
   # MENU or APP
-  # FIXME
+  elif (l[0] == "MENU" or l[0] == "APP"):
+    rubber_send(["left-shift", "F10"]) 
 
   # SHIFT
   elif (l[0] == "SHIFT"):
