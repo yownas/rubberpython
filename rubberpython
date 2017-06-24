@@ -2,6 +2,7 @@
 
 from time import sleep
 import sys
+import re
 
 # user variables ---
 
@@ -11,6 +12,7 @@ hid_device = "/dev/hidg0"
 
 hid_translate= {
   "!":	["left-shift", "1"],
+  "#":	["left-shift", "3"],
   "<":	["left-shift", "comma"],
   ">":	["left-shift", "period"],
 }
@@ -86,18 +88,18 @@ hid_table = {
   "period":	0x37, "stop":	0x37, ".":	0x37,
   "slash":	0x38, "/":	0x38,
   "caps-lock":	0x39, "capslock":	0x39,
-  "f1":		0x3a,
-  "f2":		0x3b,
-  "f3":		0x3c,
-  "f4":		0x3d,
-  "f5":		0x3e,
-  "f6":		0x3f,
-  "f7":		0x40,
-  "f8":		0x41,
-  "f9":		0x42,
-  "f10":	0x43,
-  "f11":	0x44,
-  "f12":	0x45,
+  "f1":		0x3a, "F1":	0x3a,
+  "f2":		0x3b, "F2":	0x3b,
+  "f3":		0x3c, "F3":	0x3c,
+  "f4":		0x3d, "F4":	0x3d,
+  "f5":		0x3e, "F5":	0x3e,
+  "f6":		0x3f, "F6":	0x3f,
+  "f7":		0x40, "F7":	0x40,
+  "f8":		0x41, "F8":	0x41,
+  "f9":		0x42, "F9":	0x42,
+  "f10":	0x43, "F10":	0x43,
+  "f11":	0x44, "F11":	0x44,
+  "f12":	0x45, "F12":	0x45,
   "print":	0x46,
   "scroll-lock":	0x47, "scrolllock":	0x47,
   "pause":	0x48,
@@ -169,7 +171,7 @@ hid_dev = open(hid_device, "wb")
 # functions ---
 
 def rubber_send_raw(char, mod):
-  if char.isupper():
+  if len(char) == 1 and char.isupper():
     mod ^= hid_mods["left-shift"]
     char = char.lower()
 
@@ -227,6 +229,7 @@ def rubber_parse(cmd):
     rubber_send(["left-meta"] + list(d.rstrip())) 
 
   # MENU or APP
+  # FIXME
 
   # SHIFT
   elif (l[0] == "SHIFT"):
@@ -260,13 +263,19 @@ def rubber_parse(cmd):
     rubber_send(["up"]) 
 
   # BREAK or PAUSE
+  # FIXME
 
   # CAPSLOCK
   elif (l[0] == "CAPSLOCK"):
     rubber_send(["caps-lock"]) 
 
   # DELETE
+  elif (l[0] == "DELETE"):
+    rubber_send(["delete"]) 
+
   # END
+  elif (l[0] == "END"):
+    rubber_send(["end"]) 
 
   # ESC or ESCAPE
   elif (l[0] == "ESC" or l[0] == "ESCAPE"):
@@ -279,7 +288,6 @@ def rubber_parse(cmd):
   # INSERT	
   elif (l[0] == "INSERT"):
     rubber_send(["insert"]) 
-
 
   # NUMLOCK
   elif (l[0] == "NUMLOCK"):
@@ -294,6 +302,8 @@ def rubber_parse(cmd):
     rubber_send(["pagedown"]) 
 
   # PRINTSCREEN
+  elif (l[0] == "PRINTSCREEN"):
+    rubber_send(["print"]) 
 
   # SCROLLLOCK
   elif (l[0] == "SCROLLLOCK"):
@@ -306,6 +316,10 @@ def rubber_parse(cmd):
   # TAB
   elif (l[0] == "TAB"):
     rubber_send(["tab"]) 
+
+  # F1-12
+  elif (re.match("F[0-9]+", l[0])):
+    rubber_send([l[0]]) 
 
   # REPLAY
   elif (l[0] == "REPLAY"):
