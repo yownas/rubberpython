@@ -130,7 +130,7 @@ hid_table = {
   "KEYPAD_9":		0x61,	"kp-9":		0x61,
   "KEYPAD_0":		0x62, 	"kp-0":		0x62,
   "KEYPAD_PERIOD":	0x63,	"kp-period":	0x63,	"kp-stop":	0x63,
-  "NON-US-100":		0x64,	"non-us-100":	0x64,
+  "KEY-NON-US-100":	0x64,	"NON-US-100":	0x64,	"non-us-100":	0x64,
   "KEY_APP":		0x65,	"application":	0x65,
   "KEY_POWER":		0x66,	"power":	0x66,
   "KEYPAD_EQUALS":	0x67,	"kp-equals":	0x67,	"kp-equal":	0x67,
@@ -157,7 +157,7 @@ hid_table = {
   "KEY_COPY":		0x7c,	"copy":		0x7c,
   "KEY_PASTE":		0x7d,	"paste":	0x7d,
   "KEY_FIND":		0x7e,	"find":		0x7e,
-  "mute":	0x7f,
+  "KEY_MUTE":		0x7f,	"mute":		0x7f,
 
   "KEY_LEFT_CTRL":	0xe0,
   "KEY_LEFT_SHIFT":	0xe1,
@@ -349,6 +349,10 @@ def rubber_parse(cmd):
     c, d = cmd.split(" ", 1)
     for i in range(int(d)):
       rubber_parse(last_cmd)
+
+  # KEY_something?
+  elif (re.match("KEY_.*", l[0]) or re.match("KEYPAD_.*", l[0])):
+    rubber_send([l[0]]) 
 
   # Remember what we did
   last_cmd = cmd
