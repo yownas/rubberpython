@@ -4,22 +4,22 @@ DELAY 200
 STRING cmd
 ENTER
 DELAY 200
-STRING echo|set /p=%username% | clip & notepad & sleep 1 & exit
+STRING echo|set /p=%username% | clip & notepad & sleep 0.1 & exit
 ENTER
 DELAY 200
-STRING Look 
+STRING_DELAY 45 Look 
 SPACE
 CTRL v
-STRING , I can see you're really upset about this.
+STRING_DELAY 50 , I can see you're really upset about this.
 ENTER
 DELAY 1000
 ENTER
 DELAY 50
-STRING I honestly think you ought to sit down calmly
+STRING_DELAY 60 I honestly think you ought to sit down calmly
 DELAY 500
-STRING , take a stress pill
+STRING_DELAY 100 , take a stress pill
 DELAY 200
-STRING , and think things over.
+STRING_DELAY 100 , and think things over.
 ENTER
 DELAY 3000
 ENTER
@@ -29,5 +29,8 @@ STRING ?
 ENTER
 DELAY 2000
 ENTER
-STRING You really should remove that usb drive.
+STRING_DELAY 75 You really should remove that usb drive.
 ENTER
+DELAY 5000
+ENTER
+STRING :)

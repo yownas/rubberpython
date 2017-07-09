@@ -3,6 +3,7 @@
 from time import sleep
 import sys
 import re
+import os
 
 # user variables ---
 
@@ -10,22 +11,16 @@ hid_device = "/dev/hidg0"
 
 # variables ---
 
-hid_translate= {
-  "!":	["left-shift", "1"],
-  "@":	["left-shift", "2"],
-  "#":	["left-shift", "3"],
-  "$":	["left-shift", "4"],
-  "%":	["left-shift", "5"],
-  "^":	["left-shift", "6"],
-  "&":	["left-shift", "7"],
-  "(":	["left-shift", "9"],
-  ")":	["left-shift", "0"],
-  "<":	["left-shift", "comma"],
-  ">":	["left-shift", "period"],
-  ":":	["left-shift", "semicolon"],
-  "|":	["left-shift", "backslash"],
-  "?":	["left-shift", "slash"],
-}
+# See if LAYOUT is set, otherwise use "us" as default
+try:
+  layout = os.environ['LAYOUT']
+except:
+  layout = "us"
+
+#print "Layout: " + layout
+execfile("layout/" + layout)
+
+exit
 
 hid_mods = {
   "left-ctrl":		0x01,
@@ -92,8 +87,8 @@ hid_table = {
   "hash":	0x32, "number":	0x32, "#":	0x32,
   "semicolon":	0x33, ";":	0x33,
   "quote":	0x34, "'":	0x34,
-  "backquote":	0x35,
-  "tilde":	0x35, "~":	0x35,
+  "backquote":	0x35, "\`":	0x35,
+  "tilde":	0x35,
   "comma":	0x36, ",":	0x36,
   "period":	0x37, "stop":	0x37, ".":	0x37,
   "slash":	0x38, "/":	0x38,
@@ -141,8 +136,8 @@ hid_table = {
   "kp-8":	0x60,
   "kp-9":	0x61,
   "kp-0":	0x62,
-  "kp-period":	0x63,
-  "kp-stop":	0x63,
+  "kp-period":	0x63, "kp-stop":	0x63,
+  "non-us-100": 0x64,
   "application":	0x65,
   "power":	0x66,
   "kp-equals":	0x67,
@@ -174,6 +169,7 @@ hid_table = {
 }
 
 default_delay = 0
+cdelay = 0
 last_cmd = ""
 
 hid_dev = open(hid_device, "wb")
@@ -198,8 +194,11 @@ def rubber_send(data):
       rubber_send(hid_translate[c])
     else:
       rubber_send_raw(c, mods)
+    # Wait between characters
+    if cdelay > 0: sleep(cdelay/1000)
 
 def rubber_parse(cmd):
+  global cdelay
   global default_delay
   global last_cmd
 
@@ -232,6 +231,13 @@ def rubber_parse(cmd):
   elif (l[0] == "STRING"):
     c, d = cmd.split(" ", 1)
     rubber_send(list(d.rstrip())) 
+
+  # STRING_DELAY
+  elif (l[0] == "STRING_DELAY"):
+    c, t, d = cmd.split(" ", 2)
+    cdelay = float(t)
+    rubber_send(list(d.rstrip())) 
+    cdelay = 0
 
   # ENTER
   elif (l[0] == "ENTER"):
