@@ -22,13 +22,13 @@ hid_translate= {
   "?":	["left-shift", "minus"],
   "@":	["right-alt", "2"],
   "[":	["right-alt", "8"],
-  "\\":	["right-all", "minus"],
+  "\\":	["right-alt", "minus"],
   "]":	["right-alt", "9"],
-  "^":	["left-shift", "rbracket"],
+  "^":	["left-shift", "rbracket", "space"],
   "_":	["left-shift", "slash"],
-  "`":	["left-shift", "equal"],
+  "`":	["left-shift", "equal", "space"],
   "{":	["right-alt", "7"],
   "|":	["right-alt", "non-us-100"],
   "}":	["right-alt", "0"],
-  "~":	["tilde", "space"],		# ???
+  "~":	["right-alt", "rbracket", "space"],
 }
