@@ -23,6 +23,7 @@ hid_translate= {
   "<":	["left-shift", "comma"],
   ">":	["left-shift", "period"],
   ":":	["left-shift", "semicolon"],
+  "|":	["left-shift", "backslash"],
 }
 
 hid_mods = {
@@ -86,11 +87,11 @@ hid_table = {
   "equals":	0x2e, "equal":	0x2e, "=":	0x2e,
   "lbracket":	0x2f, "[":	0x2f,
   "rbracket":	0x30, "]":	0x30,
-  "backslash":	0x31,
+  "backslash":	0x31, "\\":	0x31,
   "hash":	0x32, "number":	0x32, "#":	0x32,
   "semicolon":	0x33, ";":	0x33,
   "quote":	0x34,
-  "backquote":	0x35, "\\":	0x35,
+  "backquote":	0x35,
   "tilde":	0x35, "~":	0x35,
   "comma":	0x36, ",":	0x36,
   "period":	0x37, "stop":	0x37, ".":	0x37,
