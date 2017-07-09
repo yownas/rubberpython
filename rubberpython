@@ -24,6 +24,7 @@ hid_translate= {
   ">":	["left-shift", "period"],
   ":":	["left-shift", "semicolon"],
   "|":	["left-shift", "backslash"],
+  "?":	["left-shift", "slash"],
 }
 
 hid_mods = {
@@ -90,7 +91,7 @@ hid_table = {
   "backslash":	0x31, "\\":	0x31,
   "hash":	0x32, "number":	0x32, "#":	0x32,
   "semicolon":	0x33, ";":	0x33,
-  "quote":	0x34,
+  "quote":	0x34, "'":	0x34,
   "backquote":	0x35,
   "tilde":	0x35, "~":	0x35,
   "comma":	0x36, ",":	0x36,
