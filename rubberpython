@@ -130,7 +130,7 @@ hid_table = {
   "KEYPAD_9":		0x61,	"kp-9":		0x61,
   "KEYPAD_0":		0x62, 	"kp-0":		0x62,
   "KEYPAD_PERIOD":	0x63,	"kp-period":	0x63,	"kp-stop":	0x63,
-  "KEY-NON-US-100":	0x64,	"NON-US-100":	0x64,	"non-us-100":	0x64,
+  "KEY_NON_US_100":	0x64,	"NON-US-100":	0x64,	"non-us-100":	0x64,
   "KEY_APP":		0x65,	"application":	0x65,
   "KEY_POWER":		0x66,	"power":	0x66,
   "KEYPAD_EQUALS":	0x67,	"kp-equals":	0x67,	"kp-equal":	0x67,
